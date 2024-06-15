@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Book_Store.DAL.Book>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Books</h2>
+@foreach (var book in Model)
+{
+    @Html.DisplayFor(modelItem => book.Title)
+}
+

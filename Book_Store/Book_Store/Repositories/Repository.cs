@@ -52,7 +52,7 @@ namespace Book_Store.Repositories
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if(disposing)
                 {
@@ -60,7 +60,7 @@ namespace Book_Store.Repositories
                 }
             }
 
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()
