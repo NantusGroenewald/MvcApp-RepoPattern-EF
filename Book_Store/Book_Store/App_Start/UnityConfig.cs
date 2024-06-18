@@ -12,6 +12,8 @@ namespace Book_Store
         {
 			var container = new UnityContainer();
             container.RegisterType<IRepository<Book>, Repository<Book>>();
+            container.RegisterType<IRepository<Author>, Repository<Author>>();
+            container.RegisterType<IRepository<Publisher>, Repository<Publisher>>();
             
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -11,7 +11,7 @@ namespace Book_Store.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Author
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +19,18 @@ namespace Book_Store.DAL
         {
             this.Books = new HashSet<Book>();
         }
-    
+
         public int AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string AuthorSurname { get; set; }
-    
+        public string DisplayName
+        {
+            get
+            {
+                return $"{AuthorName} {AuthorSurname}";
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Books { get; set; }
     }

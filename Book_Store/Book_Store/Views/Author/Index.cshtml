@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Book_Store.DAL.Author>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Authors</h2>
+@foreach (var author in Model)
+{
+    <div>@Html.DisplayFor(modelItem => author.DisplayName)</div>
+}
+
+
