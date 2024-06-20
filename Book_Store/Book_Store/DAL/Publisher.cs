@@ -11,7 +11,8 @@ namespace Book_Store.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Publisher
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace Book_Store.DAL
         }
     
         public int PublisherId { get; set; }
+        [DisplayName("Publisher Name")]
         public string PublisherName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

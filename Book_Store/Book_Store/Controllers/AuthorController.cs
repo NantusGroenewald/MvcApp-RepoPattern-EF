@@ -17,10 +17,30 @@ namespace Book_Store.Controllers
             _authorRepository = authorRepository;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var model = _authorRepository.GetAll();
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddAuthor()
+        {
+            return View(new Author()); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAuthor(Author author)
+        {
+            if (ModelState.IsValid)
+            {
+                _authorRepository.Insert(author);
+                _authorRepository.Save(); 
+                return RedirectToAction("Index");  
+            }
+            return AddAuthor();
         }
     }
 }

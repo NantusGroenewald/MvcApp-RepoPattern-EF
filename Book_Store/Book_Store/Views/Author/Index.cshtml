@@ -4,6 +4,7 @@
 }
 
 <h2>Authors</h2>
+@Html.ActionLink("Add Author", "AddAuthor", null, new { @class = "btn btn-primary" })
 @foreach (var author in Model)
 {
     <div>@Html.DisplayFor(modelItem => author.DisplayName)</div>

@@ -14,13 +14,31 @@ namespace Book_Store.Controllers
 
         public PublisherController(IRepository<Publisher> publisherRepository)
         {
-            _publisherRepository = publisherRepository; 
+            _publisherRepository = publisherRepository;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var model = _publisherRepository.GetAll();
             return View(model);
+        }
+        [HttpGet]
+        public ActionResult AddPublisher()
+        {
+            return View(new Publisher());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddPublisher(Publisher publisher)
+        {
+            if (ModelState.IsValid)
+            {
+                _publisherRepository.Insert(publisher);
+                _publisherRepository.Save();
+                return RedirectToAction("Index");
+            }
+            return AddPublisher();
         }
     }
 }

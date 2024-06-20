@@ -11,12 +11,14 @@ namespace Book_Store.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Book
     {
         public int BookId { get; set; }
         public string Title { get; set; }
         public Nullable<int> GenreId { get; set; }
+        [DisplayName("Publication Year")]
         public string PublicationYear { get; set; }
         public Nullable<int> AuthorId { get; set; }
         public Nullable<int> PublisherId { get; set; }

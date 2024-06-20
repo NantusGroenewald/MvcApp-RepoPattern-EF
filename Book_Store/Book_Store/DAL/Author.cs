@@ -11,6 +11,7 @@ namespace Book_Store.DAL
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
 
     public partial class Author
     {
@@ -21,7 +22,9 @@ namespace Book_Store.DAL
         }
 
         public int AuthorId { get; set; }
+        [DisplayName("Author Name")]
         public string AuthorName { get; set; }
+        [DisplayName("Author Surname")]
         public string AuthorSurname { get; set; }
         public string DisplayName
         {
