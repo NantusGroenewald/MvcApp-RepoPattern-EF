@@ -1,5 +1,6 @@
 ﻿using Book_Store.DAL;
 using Book_Store.Repositories;
+using Book_Store.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,17 @@ namespace Book_Store.Controllers
 {
     public class AuthorController : Controller
     {
-        private IRepository<Author> _authorRepository;
+        private IAuthorService _authorService;
 
-        public AuthorController(IRepository<Author> authorRepository)
+        public AuthorController(IAuthorService authorService)
         {
-            _authorRepository = authorRepository;
+            _authorService = authorService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var model = _authorRepository.GetAll();
+            var model = _authorService.GetAllAuthors();
             return View(model);
         }
 
@@ -36,8 +37,7 @@ namespace Book_Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                _authorRepository.Insert(author);
-                _authorRepository.Save(); 
+                _authorService.AddAuthor(author);
                 return RedirectToAction("Index");  
             }
             return AddAuthor();

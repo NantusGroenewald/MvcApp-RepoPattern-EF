@@ -5,9 +5,11 @@
 
 <h2>Publishers</h2>
 @Html.ActionLink("Add Publisher", "AddPublisher", null, new { @class = "btn btn-primary" })
+<hr />
 @foreach (var publisher in Model)
 {
     <div>@Html.DisplayFor(modelItem => publisher.PublisherName)</div>
+    <hr />
 }
 
 

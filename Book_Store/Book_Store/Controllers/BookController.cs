@@ -1,5 +1,6 @@
 ﻿using Book_Store.DAL;
 using Book_Store.Repositories;
+using Book_Store.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,32 +11,25 @@ namespace Book_Store.Controllers
 {
     public class BookController : Controller
     {
-        private IRepository<Book> _bookRepository;
-        private IRepository<Genre> _genreRepository;
-        private IRepository<Author> _authorRepository;
-        private IRepository<Publisher> _publisherRepository;
-
-        public BookController(IRepository<Book> bookRepository, IRepository<Genre> genreRepository, IRepository<Author> authorRepository, IRepository<Publisher> publisherRepository)
+        private readonly IBookService _bookService;
+        public BookController(IBookService bookService)
         {
-            _bookRepository = bookRepository;
-            _genreRepository = genreRepository;
-            _authorRepository = authorRepository;
-            _publisherRepository = publisherRepository;
+            _bookService = bookService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var model = _bookRepository.GetAll();
+            var model = _bookService.GetAllBooks();
             return View(model);
         }
 
         [HttpGet]
         public ActionResult AddBook()
         {
-            ViewBag.Genres = new SelectList(_genreRepository.GetAll(), "GenreId", "GenreName");
-            ViewBag.Authors = new SelectList(_authorRepository.GetAll(), "AuthorId", "DisplayName");
-            ViewBag.Publishers = new SelectList(_publisherRepository.GetAll(), "PublisherId", "PublisherName"); 
+            ViewBag.Genres = new SelectList(_bookService.GetAllGenres(), "GenreId", "GenreName");
+            ViewBag.Authors = new SelectList(_bookService.GetAllAuthors(), "AuthorId", "DisplayName");
+            ViewBag.Publishers = new SelectList(_bookService.GetAllPublishers(), "PublisherId", "PublisherName"); 
             return View(new Book());
         }
 
@@ -45,8 +39,7 @@ namespace Book_Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                _bookRepository.Insert(book);
-                _bookRepository.Save(); 
+                _bookService.AddBook(book);
                 return RedirectToAction("Index");
             }
             return AddBook();

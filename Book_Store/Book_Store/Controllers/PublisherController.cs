@@ -1,5 +1,6 @@
 ﻿using Book_Store.DAL;
 using Book_Store.Repositories;
+using Book_Store.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,17 @@ namespace Book_Store.Controllers
 {
     public class PublisherController : Controller
     {
-        private readonly IRepository<Publisher> _publisherRepository;
+        private readonly IPublisherService _publisherService;
 
-        public PublisherController(IRepository<Publisher> publisherRepository)
+        public PublisherController(IPublisherService publisherService)
         {
-            _publisherRepository = publisherRepository;
+            _publisherService = publisherService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var model = _publisherRepository.GetAll();
+            var model = _publisherService.GetAllPublishers();
             return View(model);
         }
         [HttpGet]
@@ -34,8 +35,7 @@ namespace Book_Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                _publisherRepository.Insert(publisher);
-                _publisherRepository.Save();
+                _publisherService.AddPublisher(publisher);
                 return RedirectToAction("Index");
             }
             return AddPublisher();
