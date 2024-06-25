@@ -3,15 +3,38 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Books</h2>
-@Html.ActionLink("Add Book", "AddBook", null, new { @class = "btn btn-primary" })
-<hr />
-@foreach (var book in Model)
-{
-    <div>@Html.DisplayFor(modelItem => book.Title)</div>
-    <div>@Html.DisplayFor(modelItem => book.Genre.GenreName)</div>
-    <div>@Html.DisplayFor(modelItem => book.Author.DisplayName)</div>
-    <div>@Html.DisplayFor(modelItem => book.Publisher.PublisherName)</div>
-    <hr />
-}
+<div class="d-flex justify-content-between mb-4">
+    <h2 class="inline-header">Books</h2>
+    @Html.ActionLink("Add Book", "AddBook", null, new { @class = "btn btn-primary d-flex align-items-center" })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Year</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => book.Title)</td>
+                <td>@Html.DisplayFor(modelItem => book.Genre.GenreName)</td>
+                <td>@Html.DisplayFor(modelItem => book.Author.DisplayName)</td>
+                <td>@Html.DisplayFor(modelItem => book.Publisher.PublisherName)</td>
+                <td>@Html.DisplayFor(modelItem => book.PublicationYear)</td>
+                <td>
+                    @Html.ActionLink(" ", "EditBook", new { id = book.BookId }, new { @class = "fa fa-edit", @title = "Edit" })
+                    <button id="deleteBook" type="button" class="btn btn-danger " data-id="@book.BookId" data-name="@book.Title" ><i class="fa fa-trash"></i> </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Partial("_ConfirmationModal")
+<script src="@Url.Content("~/scripts/views/Book.js")"></script>
 

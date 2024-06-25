@@ -15,6 +15,9 @@ namespace Book_Store.Controllers
         public BookController(IBookService bookService)
         {
             _bookService = bookService;
+            ViewBag.Genres = new SelectList(_bookService.GetAllGenres(), "GenreId", "GenreName");
+            ViewBag.Authors = new SelectList(_bookService.GetAllAuthors(), "AuthorId", "DisplayName");
+            ViewBag.Publishers = new SelectList(_bookService.GetAllPublishers(), "PublisherId", "PublisherName");
         }
 
         [HttpGet]
@@ -27,9 +30,7 @@ namespace Book_Store.Controllers
         [HttpGet]
         public ActionResult AddBook()
         {
-            ViewBag.Genres = new SelectList(_bookService.GetAllGenres(), "GenreId", "GenreName");
-            ViewBag.Authors = new SelectList(_bookService.GetAllAuthors(), "AuthorId", "DisplayName");
-            ViewBag.Publishers = new SelectList(_bookService.GetAllPublishers(), "PublisherId", "PublisherName"); 
+            
             return View(new Book());
         }
 
@@ -45,5 +46,26 @@ namespace Book_Store.Controllers
             return AddBook();
         }
 
+        [HttpGet]
+        public ActionResult EditBook(int id)
+        {
+            Book book = _bookService.GetBookById(id);
+            return View(book);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditBook(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                _bookService.UpdateBook(book);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

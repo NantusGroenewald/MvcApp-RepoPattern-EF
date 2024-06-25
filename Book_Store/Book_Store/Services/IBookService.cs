@@ -15,5 +15,6 @@ namespace Book_Store.Services
         IEnumerable<Genre> GetAllGenres();
         IEnumerable<Author> GetAllAuthors();
         IEnumerable<Publisher> GetAllPublishers();
+        void UpdateBook(Book book);
     }
 }

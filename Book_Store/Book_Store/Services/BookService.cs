@@ -53,5 +53,11 @@ namespace Book_Store.Services
         {
             return _bookRepository.GetById(id);
         }
+
+        public void UpdateBook(Book book)
+        {
+            _bookRepository.Update(book);
+            _bookRepository.Save();
+        }
     }
 }
