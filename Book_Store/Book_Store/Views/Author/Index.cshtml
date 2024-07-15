@@ -3,13 +3,27 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Authors</h2>
-@Html.ActionLink("Add Author", "AddAuthor", null, new { @class = "btn btn-primary" })
+<div class="d-flex justify-content-between mb-4">
+    <h2 class="inline-header">Authors</h2>
+    @Html.ActionLink("Add Author", "AddAuthor", null, new { @class = "btn btn-primary d-flex align-items-center" })
+</div>
 <hr />
 @foreach (var author in Model)
 {
-    <div>@Html.DisplayFor(modelItem => author.DisplayName)</div>
+    <div class="d-flex justify-content-between">
+        <div>@Html.DisplayFor(modelItem => author.DisplayName)</div>
+        <div>
+            <a href="@Url.Action("EditAuthor", "Author", new {id = author.AuthorId})" class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </a>
+            <button type="button" class="btn btn-danger deleteAuthor" id="deleteAuthor" data-id="@author.AuthorId" data-name="@author.DisplayName"><i class="fa fa-trash"></i> </button>
+        </div>
+    </div>
+
     <hr />
 }
+@Html.Partial("_ConfirmationModal")
+@Html.Partial("_ResponseModal")
+<script src="@Url.Content("~/scripts/views/Author.js")"></script>
 
 

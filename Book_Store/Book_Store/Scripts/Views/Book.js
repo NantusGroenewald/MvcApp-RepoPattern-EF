@@ -1,6 +1,13 @@
 ﻿(function () {
     var actionToConfirm;
 
+
+    function handleDeleteBookClick() {
+        actionToConfirm = this;
+        var bookName = $(this).data("name");
+        showConfirmationModal("Are you sure you want to detele <strong>" + bookName + "</strong>?");
+    }
+
     function deleteBook() {
         var $button = $(actionToConfirm);
         $.ajax({
@@ -11,26 +18,22 @@
         });
     }
 
+    function handleConfirmation() {
+        $('#confirmationModal').modal('hide');
+        console.log($(actionToConfirm).attr('id'))
+        if ($(actionToConfirm).attr('id') === 'deleteBook') {
+            deleteBook();
+        }
+    }
+
     function showConfirmationModal(message) {
-        $('#confirmationModalBody').text(message);
+        console.log("Book conformation")
+        $('#confirmationModalBody').html(message);
         $('#confirmationModal').modal('show');
     }
 
-    function handleDeleteBookClick() {
-        actionToConfirm = this;
-        var bookName = $(this).data("name");
-        showConfirmationModal("Are you sure you want to detele" + bookName + "?");
-    }
-
-    function handleConfirmation() {
-        $('#confirmationModal').modal('hide');
-        if ($(actionToConfirm).attr('id') === 'deleteBook') {
-            deleteBook();
-        } 
-    }
-
     function bindEvents() {
-        $("#deleteBook").on("click", handleDeleteBookClick);
+        $(".deleteBook").on("click", handleDeleteBookClick);
         $('#confirmYes').on('click', handleConfirmation);
     }
 

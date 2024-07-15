@@ -16,5 +16,6 @@ namespace Book_Store.Services
         IEnumerable<Author> GetAllAuthors();
         IEnumerable<Publisher> GetAllPublishers();
         void UpdateBook(Book book);
+        void DeleteBook(int id);
     }
 }

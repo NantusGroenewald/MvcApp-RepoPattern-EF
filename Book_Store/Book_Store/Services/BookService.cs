@@ -29,6 +29,12 @@ namespace Book_Store.Services
             _bookRepository.Save(); 
         }
 
+        public void DeleteBook(int id)
+        {
+            _bookRepository.Delete(id);
+            _bookRepository.Save(); 
+        }
+
         public IEnumerable<Author> GetAllAuthors()
         {
             return _authorRepository.GetAll(); 

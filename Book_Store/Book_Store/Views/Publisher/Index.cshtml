@@ -3,13 +3,25 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Publishers</h2>
-@Html.ActionLink("Add Publisher", "AddPublisher", null, new { @class = "btn btn-primary" })
+<div class="d-flex justify-content-between mb-4">
+    <h2 class="inline-header">Publishers</h2>
+    @Html.ActionLink("Add Publisher", "AddPublisher", null, new { @class = "btn btn-primary d-flex align-items-center" })
+</div>
 <hr />
 @foreach (var publisher in Model)
 {
-    <div>@Html.DisplayFor(modelItem => publisher.PublisherName)</div>
+    <div class="d-flex justify-content-between">
+        <div>@Html.DisplayFor(modelItem => publisher.PublisherName)</div>
+        <div>
+            <a href="@Url.Action("EditPublisher", "Publisher", new {id = publisher.PublisherId})" class="btn btn-success">
+                <i class="fa fa-edit"></i>
+            </a>
+            <button type="button" class="btn btn-danger deletePublisher" id="deletePublisher" data-id="@publisher.PublisherId" data-name="@publisher.PublisherName"><i class="fa fa-trash"></i> </button>
+        </div>
+    </div>
+
     <hr />
 }
-
-
+@Html.Partial("_ConfirmationModal")
+@Html.Partial("_ResponseModal")
+<script src="@Url.Content("~/scripts/views/Publisher.js")"></script>

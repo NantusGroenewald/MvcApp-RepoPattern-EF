@@ -28,8 +28,10 @@
                 <td>@Html.DisplayFor(modelItem => book.Publisher.PublisherName)</td>
                 <td>@Html.DisplayFor(modelItem => book.PublicationYear)</td>
                 <td>
-                    @Html.ActionLink(" ", "EditBook", new { id = book.BookId }, new { @class = "fa fa-edit", @title = "Edit" })
-                    <button id="deleteBook" type="button" class="btn btn-danger " data-id="@book.BookId" data-name="@book.Title" ><i class="fa fa-trash"></i> </button>
+                    <a href="@Url.Action("EditBook", "Book", new {id = book.BookId})" class="btn btn-success">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button type="button" class="btn btn-danger deleteBook" id="deleteBook" data-id="@book.BookId" data-name="@book.Title"><i class="fa fa-trash"></i> </button>
                 </td>
             </tr>
         }

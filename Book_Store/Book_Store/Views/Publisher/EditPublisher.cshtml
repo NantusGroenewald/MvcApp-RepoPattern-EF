@@ -1,0 +1,22 @@
+﻿@model Book_Store.DAL.Publisher
+@{
+    ViewBag.Title = "Edit Publisher";
+}
+
+<h2>Edit Publisher</h2>
+@using (Html.BeginForm("EditPublisher", "Publisher", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PublisherId)
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.PublisherName)
+            @Html.EditorFor(m => m.PublisherName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.PublisherName)
+        </div>
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </div>
+}

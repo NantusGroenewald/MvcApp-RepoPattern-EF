@@ -1,0 +1,27 @@
+﻿@model Book_Store.DAL.Author
+@{
+    ViewBag.Title = "Edit Author";
+}
+
+<h2>Edit Author</h2>
+@using (Html.BeginForm("EditAuthor", "Author", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.AuthorId)
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.AuthorName)
+            @Html.EditorFor(m => m.AuthorName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.AuthorName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.AuthorSurname)
+            @Html.EditorFor(m => m.AuthorSurname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.AuthorSurname)
+        </div>
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </div>
+}

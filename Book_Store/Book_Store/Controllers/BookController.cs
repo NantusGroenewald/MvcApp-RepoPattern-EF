@@ -67,5 +67,12 @@ namespace Book_Store.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult DeleteBook(int id)
+        {
+            _bookService.DeleteBook(id);
+            return RedirectToAction("Index");
+        }
     }
 }

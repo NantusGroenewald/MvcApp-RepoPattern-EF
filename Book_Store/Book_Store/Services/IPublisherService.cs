@@ -13,5 +13,8 @@ namespace Book_Store.Services
         IEnumerable<Publisher> GetAllPublishers();
         Publisher GetPublisherById(int id);
         void AddPublisher(Publisher publisher);
+        void EditPublisher(Publisher publisher);
+        void DeletePublisher(int id);
+        List<string> GetBooksByPublisherId(int id);
     }
 }
