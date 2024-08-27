@@ -67,24 +67,36 @@ namespace Book_Store.Controllers
         [HttpPost]
         public ActionResult DeletePublisher(int id)
         {
-            try
+            //try
+            //{
+            //    _publisherService.DeletePublisher(id);
+            //    return Json(new { success = true });
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (ex.InnerException != null && ex.InnerException.InnerException is SqlException sqlEx && sqlEx.Number == 547)
+            //    {
+            //        var relatedBooks = _publisherService.GetBooksByPublisherId(id);
+            //        var errorResponse = new { success = false, message = "This publisher cannot be deleted because it is linked to the following books: ", books = relatedBooks };
+            //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            //        return Json(errorResponse);
+            //    }
+            //    var generalErrorResponse = new { success = false, message = ex.Message };
+            //    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            //    return Json(generalErrorResponse);
+            //}
+            var deletedAction = _publisherService.DeletePublisher(id);
+            if (deletedAction.Item1)
             {
-                _publisherService.DeletePublisher(id);
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            else
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException is SqlException sqlEx && sqlEx.Number == 547)
-                {
-                    var relatedBooks = _publisherService.GetBooksByPublisherId(id);
-                    var errorResponse = new { success = false, message = "This publisher cannot be deleted because it is linked to the following books: ", books = relatedBooks };
-                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    return Json(errorResponse);
-                }
-                var generalErrorResponse = new { success = false, message = ex.Message };
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return Json(generalErrorResponse);
+                var errorResponse = new { success = false, message = "This publisher cannot be deleted because it is linked to the following books: ", books = relatedBooks };
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(errorResponse);
             }
+
         }
 
     }

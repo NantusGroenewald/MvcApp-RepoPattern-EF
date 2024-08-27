@@ -13,7 +13,7 @@ namespace Book_Store.Services
         Author GetAuthorById(int id);
         void AddAuthor(Author author);
         void UpdateAuthor(Author author);
-        void DeleteAuthor(int id);
-        List<string> GetAllBooksByAuthorId(int id); 
+        (bool, IEnumerable<string>) DeleteAuthor(int id);
+        IEnumerable<string> GetAllBooksByAuthorId(int id); 
     }
 }

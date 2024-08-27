@@ -70,23 +70,16 @@ namespace Book_Store.Controllers
         [HttpPost]
         public ActionResult DeleteAuthor(int id)
         {
-            try
+            var deleteAction = _authorService.DeleteAuthor(id);
+            if (deleteAction.Item1)
             {
-                _authorService.DeleteAuthor(id);
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            else
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException is SqlException sqlEx && sqlEx.Number == 547)
-                {
-                    var relatedBooks = _authorService.GetAllBooksByAuthorId(id);
-                    var errorResponse = new { success = false, message = "This author cannot be deleted because it is linked to the following books: ", books = relatedBooks };
-                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    return Json(errorResponse);
-                }
-                var generalErrorResponse = new { success = false, message = ex.Message };
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return Json(generalErrorResponse);
+                var errorResponse = new { success = false, message = "This author cannot be deleted because it is linked to the following books: ", books = deleteAction.Item2 };
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(errorResponse);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Book_Store.Services
         Publisher GetPublisherById(int id);
         void AddPublisher(Publisher publisher);
         void EditPublisher(Publisher publisher);
-        void DeletePublisher(int id);
-        List<string> GetBooksByPublisherId(int id);
+        (bool, IEnumerable<string>) DeletePublisher(int id);
+        IEnumerable<string> GetBooksByPublisherId(int id);
     }
 }

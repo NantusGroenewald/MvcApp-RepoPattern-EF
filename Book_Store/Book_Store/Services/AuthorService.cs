@@ -23,10 +23,16 @@ namespace Book_Store.Services
             _authorRepository.Save();
         }
 
-        public void DeleteAuthor(int id)
+        public (bool,IEnumerable<string>) DeleteAuthor(int id)
         {
-            _authorRepository.Delete(id);
-            _authorRepository.Save();
+            var authorBooks = GetAllBooksByAuthorId(id);
+            if (authorBooks.Count() == 0)
+            {
+                _authorRepository.Delete(id);
+                _authorRepository.Save();
+                return (true, null);
+            }
+            return (false, authorBooks); 
         }
 
         public IEnumerable<Author> GetAllAuthors()
@@ -34,11 +40,10 @@ namespace Book_Store.Services
             return _authorRepository.GetAll();
         }
 
-        public List<string> GetAllBooksByAuthorId(int id)
+        public IEnumerable<string> GetAllBooksByAuthorId(int id)
         {
             var relatedBooks = _bookRepository.GetAll().Where(book => book.AuthorId == id);
-            List<string> bookTitles = relatedBooks.Select(book => book.Title).ToList();
-            return bookTitles;
+            return relatedBooks.Select(book => book.Title);
         }
 
         public Author GetAuthorById(int id)

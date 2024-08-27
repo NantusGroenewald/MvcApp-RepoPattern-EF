@@ -8,7 +8,7 @@ namespace Book_Store.Repositories
 {
     public interface IRepository<TEntity>: IDisposable
     {
-        IEnumerable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll();
         TEntity GetById(int id);
         void Insert(TEntity model);
         void Update(TEntity model);

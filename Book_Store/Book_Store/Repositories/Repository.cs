@@ -18,9 +18,9 @@ namespace Book_Store.Repositories
             _dbSet = _context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>().AsQueryable();
         }
 
         public TEntity GetById(int id)
